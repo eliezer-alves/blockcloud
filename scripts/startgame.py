@@ -1,5 +1,6 @@
 import pygame, sys
 from scripts.menu import Menu
+from scripts.game import Game
 from scripts.settings import *
 
 class StartGame:
@@ -23,7 +24,7 @@ class StartGame:
 
             if self.scene == "menu" and self.current_scene.active == False:
                 self.scene = "game"
-                # self.current_scene = Game()
+                self.current_scene = Game()
             elif self.scene == "game" and self.current_scene.active == False:
                 self.scene = "gameover"
                 # self.current_scene = GameOver()
@@ -38,7 +39,7 @@ class StartGame:
                 self.current_scene.events(event)
             
             self.fps.tick(60)
-            # self.display.fill(BG_COLOR)
+            self.display.fill(BG_COLOR)
             self.current_scene.draw()
             self.current_scene.update()
             pygame.display.flip()
