@@ -21,7 +21,15 @@ class Player(pygame.sprite.Sprite):
         self.frame = 0
 
     def move(self):
+
         self.rect.x += self.direction.x * self.speed
+
+        if self.rect.x < 0:
+            self.rect.x = 0
+
+        if self.rect.x > WIDTH - self.rect.w:
+            self.rect.x = WIDTH - self.rect.w
+
         if self.on_ground == False:
             self.image = pygame.transform.flip(self.image, self.flip, False)
 
