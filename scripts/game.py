@@ -23,13 +23,17 @@ class Game(Scene):
         self.cloud_colision = pygame.sprite.Group()
 
 
-        self.pts = 0
         self.score_text = Text("assets/fonts/airstrike.ttf",
                                25, "Score: ", "white", [30,30])
         self.score_pts = Text("assets/fonts/airstrike.ttf",
                                25, "0", "white", [130, 30])
 
-        self.player = Player([0, 0], [self.all_sprites], self.cloud_colision, self.score_pts)
+        self.life_text = Text("assets/fonts/airstrike.ttf",
+                               25, "Life: ", "white", [260,30])
+        self.life_pts = Text("assets/fonts/airstrike.ttf",
+                               25, "3", "white", [330, 30])
+
+        self.player = Player([0, 0], [self.all_sprites], self.cloud_colision, self.score_pts, self.life_pts)
 
     def events(self, event):
         pass
@@ -39,6 +43,8 @@ class Game(Scene):
         self.spaw_cloud()
         self.score_text.draw()
         self.score_pts.draw()
+        self.life_text.draw()
+        self.life_pts.draw()
         return super().update()
 
     def spaw_cloud(self):

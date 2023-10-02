@@ -2,14 +2,16 @@ import pygame
 from scripts.settings import *
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, pos, groups, cloud_collision, score):
+    def __init__(self, pos, groups, cloud_collision, text_score, text_life):
         super().__init__(groups)
         self.image = pygame.image.load("assets/nave0.png")
-        self.score = score
+        self.text_score = text_score
+        self.text_life = text_life
         self.rect = self.image.get_rect(topleft=pos)
         self.cloud_collision = cloud_collision
         self.direction = pygame.math.Vector2()
         self.pts = 0
+        self.life = 3
         self.speed = 5
         self.jump_force = 10
         self.gravity = 0.2
@@ -43,7 +45,9 @@ class Player(pygame.sprite.Sprite):
             self.rect.y = HEIGHT - 100
             if self.pts > 0:
                 self.pts = 0
-                self.score.update_text(str(self.pts), color="white")
+                self.text_score.update_text(str(self.pts), color="white")
+                self.life -= 1
+                self.text_life.update_text(str(self.life), color="white")
             self.on_ground = True
 
         # for sprite in self.collision_group:
@@ -58,7 +62,7 @@ class Player(pygame.sprite.Sprite):
                 self.rect.y = cloud.rect.y - (cloud.rect.height/2)
                 if not self.on_ground:
                     self.pts += 1
-                    self.score.update_text(str(self.pts), color="white")
+                    self.text_score.update_text(str(self.pts), color="white")
                 self.on_ground = True
 
     def animation(self, speed, n_img, path):
