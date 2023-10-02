@@ -2,11 +2,11 @@ import pygame
 from scripts.settings import *
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, pos, groups, collison_group):
+    def __init__(self, pos, groups, cloud_collision):
         super().__init__(groups)
         self.image = pygame.image.load("assets/nave0.png")
         self.rect = self.image.get_rect(topleft=pos)
-        self.collision_group = collison_group
+        self.cloud_collision = cloud_collision
         self.direction = pygame.math.Vector2()
         self.speed = 5
         self.jump_force = 10
@@ -31,7 +31,9 @@ class Player(pygame.sprite.Sprite):
         self.input()
         self.move()
         self.gravity_force()
-        self.y_collison()
+        if self.direction.y >= 0:
+            self.y_collison()
+            self.cloud_colision()
 
     def y_collison(self):
         if self.rect.y >= HEIGHT - 100:
@@ -39,12 +41,17 @@ class Player(pygame.sprite.Sprite):
             self.rect.y = HEIGHT - 100
             self.on_ground = True
 
-        for sprite in self.collision_group:
-            if sprite.rect.colliderect(self.rect):
-                if self.direction.y > 0:
-                    self.direction.y = 0
-                    self.rect.bottom = sprite.rect.top
-                    self.on_ground = True
+        # for sprite in self.collision_group:
+        #     if sprite.rect.colliderect(self.rect):
+        #         if self.direction.y > 0:
+        #             self.direction.y = 0
+        #             self.rect.bottom = sprite.rect.top
+        #             self.on_ground = True
+    def cloud_colision(self):
+        for cloud in self.cloud_collision:
+            if self.rect.colliderect(cloud.rect):
+                self.rect.y = cloud.rect.y - (cloud.rect.height/2)
+                self.on_ground = True
 
     def animation(self, speed, n_img, path):
         self.tick+=1
@@ -64,7 +71,6 @@ class Player(pygame.sprite.Sprite):
             self.direction.x = 1
             self.flip = False
             self.animation(8, 3, "assets/player/walk_")
-            print("Direita")
         else:
             self.direction.x = 0
             self.animation(16, 2, "assets/player/walk_")

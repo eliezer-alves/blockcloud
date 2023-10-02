@@ -21,7 +21,7 @@ class Game(Scene):
 
         self.tick = 0
         self.cloud_colision = pygame.sprite.Group()
-        self.player = Player([0, 0], [self.all_sprites], self.collision_sprites)
+        self.player = Player([0, 0], [self.all_sprites], self.cloud_colision)
 
     def events(self, event):
         pass
