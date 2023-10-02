@@ -20,6 +20,7 @@ class Game(Scene):
         # self.bg = Background("assets/bg_1.png", [0, -480], [self.all_sprites])
 
         self.tick = 0
+        self.cloud_tick = 0
         self.cloud_colision = pygame.sprite.Group()
 
 
@@ -55,7 +56,12 @@ class Game(Scene):
     def spaw_cloud(self):
         self.tick += 1
         if self.tick == 100:
-            Cloud("assets/clouds/cl0.png", [random.randint(0, 150), -100], [self.all_sprites, self.cloud_colision])
+            file_path = f'assets/clouds/cl{random.randint(0, 4)}.png'
+            Cloud(file_path, [random.randint(0, 150), -100], [self.all_sprites, self.cloud_colision])
+
+            # self.cloud_tick+=1
+            # if(self.cloud_tick >= 5):
+            #     self.cloud_tick = 0
 
 
         if self.tick == 200:
