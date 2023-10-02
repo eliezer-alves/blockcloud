@@ -66,7 +66,7 @@ class Player(pygame.sprite.Sprite):
         #             self.on_ground = True
     def cloud_colision(self):
         for cloud in self.cloud_collision:
-            if self.rect.colliderect(cloud.rect):
+            if self.rect.colliderect(cloud.rect) and (self.rect.y + self.rect.h) >= cloud.rect.y:
                 self.rect.y = (cloud.rect.y - (self.rect.height)) + 5
                 if not self.on_ground:
                     self.pts += 1
