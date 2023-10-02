@@ -25,16 +25,16 @@ class Game(Scene):
 
 
         self.score_text = Text("assets/fonts/airstrike.ttf",
-                               25, "Score: ", "white", [30,30])
+                               25, "Score: ", "white", [20,20])
         self.score_pts = Text("assets/fonts/airstrike.ttf",
-                               25, "0", "white", [130, 30])
+                               25, "0", "white", [120, 20])
 
         self.life_text = Text("assets/fonts/airstrike.ttf",
-                               25, "Life: ", "white", [260,30])
+                               25, "Life: ", "white", [20,50])
         self.life_pts = Text("assets/fonts/airstrike.ttf",
-                               25, "2", "white", [330, 30])
+                               25, "5", "white", [90, 50])
 
-        self.player = Player([0, 0], [self.all_sprites], self.cloud_colision, self.score_pts, self.life_pts)
+        self.player = Player([0, 0], [self.all_sprites], self.cloud_colision, self.score_pts, self.life_pts, 5)
 
     def events(self, event):
         pass
@@ -55,17 +55,20 @@ class Game(Scene):
 
     def spaw_cloud(self):
         self.tick += 1
-        if self.tick == 100:
-            file_path = f'assets/clouds/cl{random.randint(0, 4)}.png'
-            Cloud(file_path, [random.randint(0, 150), -100], [self.all_sprites, self.cloud_colision])
 
-            # self.cloud_tick+=1
-            # if(self.cloud_tick >= 5):
-            #     self.cloud_tick = 0
+        file_path = f'assets/clouds/cl{random.randint(0, 4)}.png'
+        if self.tick == 50:
+            Cloud(file_path, [random.randint(0, 150), random.randint(100, 200)*-1], [self.all_sprites, self.cloud_colision])
 
+        if self.tick == 150:
+            Cloud(file_path, [random.randint(350, 450), random.randint(200, 300)*-1], [self.all_sprites, self.cloud_colision])
 
-        if self.tick == 200:
-            Cloud("assets/clouds/cl0.png", [random.randint(350, 450), -100], [self.all_sprites, self.cloud_colision])
+        if self.tick == 250:
+            Cloud(file_path, [random.randint(50, 250), random.randint(200, 300)*-1], [self.all_sprites, self.cloud_colision])
+
+        if self.tick == 400:
+            Cloud(file_path, [random.randint(200, 300), random.randint(150, 200) * -1],
+                  [self.all_sprites, self.cloud_colision])
             self.tick = 0
 
 # class Ui:

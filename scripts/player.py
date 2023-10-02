@@ -2,7 +2,7 @@ import pygame
 from scripts.settings import *
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, pos, groups, cloud_collision, text_score, text_life):
+    def __init__(self, pos, groups, cloud_collision, text_score, text_life, life):
         super().__init__(groups)
         self.image = pygame.image.load("assets/pl.png")
         self.text_score = text_score
@@ -11,10 +11,10 @@ class Player(pygame.sprite.Sprite):
         self.cloud_collision = cloud_collision
         self.direction = pygame.math.Vector2()
         self.pts = 0
-        self.life = 2
+        self.life = life
         self.speed = 5
-        self.jump_force = 10
-        self.gravity = 0.2
+        self.jump_force = 8
+        self.gravity = 0.1
         self.on_ground = False
         self.flip = False
         self.tick = 0
@@ -68,6 +68,7 @@ class Player(pygame.sprite.Sprite):
         for cloud in self.cloud_collision:
             if self.rect.colliderect(cloud.rect) and (self.rect.y + self.rect.h) >= cloud.rect.y:
                 self.rect.y = (cloud.rect.y - (self.rect.height)) + 5
+                self.direction.y = 0
                 if not self.on_ground:
                     self.pts += 1
                     self.text_score.update_text(str(self.pts), color="white")
