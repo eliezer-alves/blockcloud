@@ -4,7 +4,7 @@ from scripts.settings import *
 class Player(pygame.sprite.Sprite):
     def __init__(self, pos, groups, cloud_collision, text_score, text_life):
         super().__init__(groups)
-        self.image = pygame.image.load("assets/nave0.png")
+        self.image = pygame.image.load("assets/pl.png")
         self.text_score = text_score
         self.text_life = text_life
         self.rect = self.image.get_rect(topleft=pos)
@@ -67,7 +67,7 @@ class Player(pygame.sprite.Sprite):
     def cloud_colision(self):
         for cloud in self.cloud_collision:
             if self.rect.colliderect(cloud.rect):
-                self.rect.y = cloud.rect.y - (cloud.rect.height/2)
+                self.rect.y = (cloud.rect.y - (self.rect.height)) + 5
                 if not self.on_ground:
                     self.pts += 1
                     self.text_score.update_text(str(self.pts), color="white")

@@ -50,11 +50,11 @@ class Game(Scene):
     def spaw_cloud(self):
         self.tick += 1
         if self.tick == 100:
-            Cloud("assets/clouds/cloud0.png", [random.randint(0, 150), -100], [self.all_sprites, self.cloud_colision])
+            Cloud("assets/clouds/cl0.png", [random.randint(0, 150), -100], [self.all_sprites, self.cloud_colision])
 
 
         if self.tick == 200:
-            Cloud("assets/clouds/cloud0.png", [random.randint(350, 450), -100], [self.all_sprites, self.cloud_colision])
+            Cloud("assets/clouds/cl0.png", [random.randint(350, 450), -100], [self.all_sprites, self.cloud_colision])
             self.tick = 0
 
 # class Ui:
