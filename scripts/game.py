@@ -31,12 +31,16 @@ class Game(Scene):
         self.life_text = Text("assets/fonts/airstrike.ttf",
                                25, "Life: ", "white", [260,30])
         self.life_pts = Text("assets/fonts/airstrike.ttf",
-                               25, "3", "white", [330, 30])
+                               25, "2", "white", [330, 30])
 
         self.player = Player([0, 0], [self.all_sprites], self.cloud_colision, self.score_pts, self.life_pts)
 
     def events(self, event):
         pass
+
+    def next_stage(self):
+        if self.player.life <= 0:
+            self.active = False
 
     def update(self):
         self.all_sprites.update()
@@ -45,6 +49,7 @@ class Game(Scene):
         self.score_pts.draw()
         self.life_text.draw()
         self.life_pts.draw()
+        self.next_stage()
         return super().update()
 
     def spaw_cloud(self):

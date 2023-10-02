@@ -11,7 +11,7 @@ class Player(pygame.sprite.Sprite):
         self.cloud_collision = cloud_collision
         self.direction = pygame.math.Vector2()
         self.pts = 0
-        self.life = 3
+        self.life = 2
         self.speed = 5
         self.jump_force = 10
         self.gravity = 0.2
@@ -48,9 +48,9 @@ class Player(pygame.sprite.Sprite):
             self.cloud_colision()
 
     def y_collison(self):
-        if self.rect.y >= HEIGHT - 100:
+        if self.rect.y >= HEIGHT - self.rect.h:
             self.direction.y = 0
-            self.rect.y = HEIGHT - 100
+            self.rect.y = HEIGHT - self.rect.h
             if self.pts > 0:
                 self.pts = 0
                 self.text_score.update_text(str(self.pts), color="white")
